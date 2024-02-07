@@ -10,7 +10,7 @@
     <style>
         body {
             margin: 0;
-            display: flex;
+            display: grid;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -20,6 +20,57 @@
             height: 500px;
             width: 900px;
             margin: 0 auto; /* Center the div horizontally */
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #nameInput {
+            width: 300px;
+            height: 20px;
+            border: 2px solid;
+            border-color: rgb(0, 85, 135);
+            text-align: center;
+            color: rgb(0, 85, 135);
+            border-radius: 5px 5px 5px 5px;
+            font-size: 12px;
+            
+            text-align: center;
+        }
+
+        #infoInput {
+            
+            width: 300px;
+            height: 20px;
+            border: 2px solid;
+            border-color: rgb(0, 85, 135);
+            text-align: center;
+            color: rgb(0, 85, 135);
+            border-radius: 5px 5px 5px 5px;
+            font-size: 12px;
+            
+            text-align: center;
+        }
+
+        button {
+            padding: 6px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            background-color: rgb(0, 85, 135);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .header input {
+            margin-right: 10px;
         }
 
         .logo {
@@ -49,14 +100,23 @@
 </head>
 <body>
 
+<div class="header">
+    <input type="text" id="nameInput" placeholder="Enter Name and Position">
+    <input type="text" id="infoInput" placeholder="Enter Info">
+    <button onclick="generateContent()">Generate</button>
+    <button onclick="copyContent()">Copy Signature</button>
+    <button onclick="refreshPage()">Refresh</button>
+</div>
+
 <div class="body">
-    <div class="logo" style=" float: left; height: 130px; width: 150px; margin-right: 10px;">
+    <div class="logo" style="float: left; height: 130px; width: 150px;  margin-right: 10px;">
         <img class="img" src="https://ci3.googleusercontent.com/mail-sig/AIorK4yz8Ke-iHuTO_tKrfrFq6fHxCRYbrzKeA0M91Zh4mlhCzXzFgoW6DYJrMqgE8WI6jhEsmKs8SQ" alt="logo">
     </div>
-    <div class="text" style=" float: left; height: 130px; width: 690px; margin-right: 10px;" contenteditable="true">
-        <br>
-        <p style="font-size: 16px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135)">Guga Gordeladze | IT Manager</p>
-        <p style="font-size: 12px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135)">m: +995 577 47 15 15 | t: +995 322 999 900 | Shekvetili Beach, Highway E70 Shekvetili, 3521 Georgia</p>
+    <br>
+    <div class="text" style="float: left; height: 110px; width: 690px; margin-right: 10px;"  contenteditable="true">
+        <p style="font-size: 16px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135)" class="name">Guga Gordeladze | IT Manager</p>
+        <p style="font-size: 12px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); float: left; margin-right: 5px;" class="info" >m: +995 577 47 15 15  </p>
+        <p style="font-size: 12px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); float: left;" class="address">  | t: +995 322 999 900 | Shekvetili Beach, Highway E70 Shekvetili, 3521 Georgia</p>
     </div>
     <div class="footer">
         <img class="img" src="https://ci3.googleusercontent.com/mail-sig/AIorK4x3VlmNhspfB7vOxd8VYNPvr-QJP5pUObB8OkU4b_ZWE87d2xFTEbIZX_NheK2MHYFFElDteXU" alt="footer">
@@ -67,6 +127,34 @@
         </a>
     </div>
 </div>
+
+<script>
+    function generateContent() {
+        var nameInputValue = document.getElementById('nameInput').value;
+        var infoInputValue = document.getElementById('infoInput').value;
+
+        var nameElement = document.querySelector('.name');
+        var infoElement = document.querySelector('.info');
+
+        nameElement.textContent = nameInputValue;
+        infoElement.textContent = infoInputValue;
+    }
+
+    function copyContent() {
+        var bodyContent = document.querySelector('.body');
+        var range = document.createRange();
+        range.selectNode(bodyContent);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+        alert('Content copied to clipboard!');
+    }
+
+    function refreshPage() {
+        location.reload();
+    }
+</script>
 
 </body>
 </html>
