@@ -27,8 +27,14 @@
         }
 
         .header {
+            height: 29px;
+            width: 810px;
+            align-items: center;
             text-align: center;
-            margin-bottom: 20px;
+            margin-top: 15px;
+            background-color: rgb(0, 85, 135);
+            border-radius: 5px 5px 5px 5px;
+            
         }
 
         #nameInput {
@@ -68,7 +74,7 @@
             text-align: center;
         }
 
-        button {
+        .button {
             padding: 6px 12px;
             font-size: 12px;
             cursor: pointer;
@@ -79,7 +85,7 @@
             margin-right: 10px;
         }
 
-        button:hover {
+        .button:hover {
             background-color: #45a049;
         }
 
@@ -131,19 +137,41 @@
             display: block;
             transition: display 0.3s;
 }
+        .header1 {
+            text-align: center;
+            padding-bottom: 5%;
+}
+
+        .but {
+            display: inline-block;
+            margin: 5px; /* Adjust the margin as needed */
+            padding: 6px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            background-color: #C70039;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+}
     </style>
 </head>
 <body>
 
 <div class="header">
-    <button onclick="refreshPage()">Refresh  </buttoნ>
+    <button class="button" onclick="refreshPage()">Refresh</button>
     <input type="text" id="nameInput" placeholder="Name and Surname">
     <input type="text" id="jobInput" placeholder="Job Title">
     <input type="text" id="infoInput" placeholder="Mobile XXX XX XX XX">
-    <button onclick="generateContent()">Generate</button>
-    <button onclick="copyContent()">Copy Signature</button>
-    <button onclick="openTutorial()">Signature Setup Tutorial</button>
-    <button class="but" onclick="openGmailSettings()">Gmail Settings</button>
+   
+   
+</div>
+
+<div class="header1" >
+    <button class="button" onclick="generateContent()">Generate</button>
+    <button class="button" onclick="copyContent()">Copy Signature</button>
+    <button class="button" onclick="openTutorial()">Signature Setup Tutorial</button>
+    <button class="button" onclick="openGmailSettings()">Gmail Settings</button>
 </div>
 
 <div class="body">
@@ -215,10 +243,10 @@
     }
     
     function openTutorial() {
-        window.open('https://drive.google.com/file/d/1bl3po2FoOZPt8iKpfwq0Rdt1D5waglz9/view?usp=drive_link', '_blank');
+    window.open('https://drive.google.com/file/d/1bl3po2FoOZPt8iKpfwq0Rdt1D5waglz9/view?usp=drive_link', '_blank');
 }
-    function openGmailSettings() {
-        window.open('https://mail.google.com/mail/u/0/?tab=rm#settings/general', '_blank');
+function openGmailSettings() {
+    window.open('https://mail.google.com/mail/u/0/?tab=rm#settings/general', '_blank');
 }
 </script>
 
