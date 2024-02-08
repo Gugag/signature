@@ -141,8 +141,9 @@
     <input type="text" id="infoInput" placeholder="Mobile XXX XX XX XX">
     <button onclick="generateContent()">Generate</button>
     <button onclick="copyContent()">Copy Signature</button>
-    <button onclick="refreshPage()">Refresh</button>
+    <!-- <button onclick="refreshPage()">Refresh</button> -->
     <button onclick="openTutorial()">Signature Setup Tutorial</button>
+    <button class="but" onclick="openGmailSettings()">Gmail Settings</button>
 </div>
 
 <div class="body">
@@ -215,6 +216,9 @@
     
     function openTutorial() {
     window.open('https://drive.google.com/file/d/1bl3po2FoOZPt8iKpfwq0Rdt1D5waglz9/view?usp=drive_link', '_blank');
+}
+    function openGmailSettings() {
+        window.open('https://mail.google.com/mail/u/0/?tab=rm#settings/general', '_blank');
 }
 </script>
 
