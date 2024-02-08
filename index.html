@@ -109,6 +109,18 @@
             background-color: #fff; /* Set background color */
             margin-bottom: 10px;
         }
+        .alert {
+            position: fixed;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #45a050;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            display: block;
+            transition: display 0.3s;
+}
     </style>
 </head>
 <body>
@@ -136,7 +148,6 @@
         <p style="font-size: 13px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); float: left; margin-right: 5px; " class="info" >XXX XX XX XX</p>
         <p style="font-size: 13px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); float: left; " class="address">  | t: +995 322 999 900 | Shekvetili Beach, Highway E70 Shekvetili, 3521 Georgia</p>
     </div>
-    
     <div class="footer">
         <img class="img" src="https://ci3.googleusercontent.com/mail-sig/AIorK4x3VlmNhspfB7vOxd8VYNPvr-QJP5pUObB8OkU4b_ZWE87d2xFTEbIZX_NheK2MHYFFElDteXU" alt="footer">
     </div>
@@ -170,7 +181,20 @@
         window.getSelection().addRange(range);
         document.execCommand('copy');
         window.getSelection().removeAllRanges();
-        alert('Content copied to clipboard!');
+
+        // Create and style the alert element
+        var alertElement = document.createElement('div');
+        alertElement.className = 'alert';
+        alertElement.textContent = 'Signature copied to clipboard!';
+
+        // Append the alert element to the document
+        document.body.appendChild(alertElement);
+
+        // Remove the alert after a certain duration (e.g., 3 seconds)
+    setTimeout(function () {
+        document.body.removeChild(alertElement);
+            }, 3000);
+
     }
 
     function refreshPage() {
