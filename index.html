@@ -3,75 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv='cache-control' content='no-cache'>
-    <meta http-equiv='expires' content='0'>
-    <meta http-equiv='pragma' content='no-cache'>
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
     <meta name="generator" content="Guga Gordeladze">
     <link rel="icon" type="image/png" sizes="16x16" href="https://i.postimg.cc/d02Pj64w/favicon-16x16.png">
     <title>Paragraph Signature</title>
     <style>
         body {
-            margin: 0;
+            
             display: grid;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            font-family: Arial, sans-serif;
         }
 
         .body {
-            height: 500px;
+            height: 600px;
             width: 900px;
-            margin: 0 auto; /* Center the div horizontally */
+           
+            text-align: left; /* Ensure left alignment */
+            background-color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
         }
 
         .header {
+           
             height: 28px;
             width: 810px;
             align-items: center;
             text-align: center;
             margin-top: 15px;
             background-color: rgb(0, 85, 135);
-            border-radius: 5px 5px 5px 5px;
+            border-radius: 5px;
+            padding: 10px;
         }
 
-        #nameInput {
+        #nameInput, #jobInput, #infoInput {
             width: 160px;
             height: 20px;
-            border: 2px solid;
-            border-color: rgb(0, 85, 135);
+            border: 2px solid rgb(0, 85, 135);
             text-align: center;
             color: rgb(0, 85, 135);
-            border-radius: 5px 5px 5px 5px;
+            border-radius: 5px;
             font-size: 11px;
-            text-align: center;
-        }
-
-        #jobInput {
-            width: 160px;
-            height: 20px;
-            border: 2px solid;
-            border-color: rgb(0, 85, 135);
-            text-align: center;
-            color: rgb(0, 85, 135);
-            border-radius: 5px 5px 5px 5px;
-            font-size: 11px;
-            text-align: center;
-        }
-
-        #infoInput {
-            width: 160px;
-            height: 20px;
-            border: 2px solid;
-            border-color: rgb(0, 85, 135);
-            text-align: center;
-            color: rgb(0, 85, 135);
-            border-radius: 5px 5px 5px 5px;
-            font-size: 11px;
-            text-align: center;
+            margin-right: 10px;
+            
         }
 
         .button {
-            padding: 6px 12px;
+          
             font-size: 12px;
             cursor: pointer;
             background-color: rgb(0, 85, 135);
@@ -85,30 +68,26 @@
             background-color: #45a049;
         }
 
-        .header input {
-            margin-right: 10px;
-        }
-
         .logo {
             height: 130px;
             width: 150px;
-            background-color: #fff; /* Set background color */
+            background-color: #fff;
             margin-right: 10px;
         }
 
         .text {
             height: 110px;
             width: 690px;
-            background-color: #fff; /* Set background color */
+            background-color: #fff;
             margin-right: 10px;
-            overflow: hidden; /* Clear floats without using clear: both; */
+            overflow: hidden;
         }
 
         .footer {
             clear: both;
             height: 70px;
             width: 850px;
-            background-color: #fff; /* Set background color */
+            background-color: #fff;
             margin-top: 10px;
             margin-bottom: 10px;
         }
@@ -117,7 +96,7 @@
             clear: both;
             height: 120px;
             width: 850px;
-            background-color: #fff; /* Set background color */
+            background-color: #fff;
             margin-top: 10px;
             margin-bottom: 10px;
         }
@@ -132,17 +111,17 @@
             padding: 10px;
             border-radius: 5px;
             display: block;
-            transition: display 0.3s;
         }
 
         .header1 {
             text-align: center;
             padding-bottom: 5%;
+            margin-top: 30px;
         }
 
         .but {
             display: inline-block;
-            margin: 5px; /* Adjust the margin as needed */
+            margin: 5px;
             padding: 6px 12px;
             font-size: 12px;
             cursor: pointer;
@@ -151,6 +130,29 @@
             border: none;
             border-radius: 5px;
             margin-right: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-spacing: 0;
+        }
+
+        table td {
+            padding: 10px;
+            vertical-align: top;
+        }
+
+        .name, .job, .info, .address {
+            font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif;
+            color: rgb(0, 85, 135);
+        }
+
+        .name {
+            font-size: 16px;
+        }
+
+        .job, .info, .address {
+            font-size: 13px;
         }
     </style>
 </head>
@@ -168,33 +170,39 @@
     <button class="button" onclick="copyContent()">Copy Signature</button>
     <button class="button" onclick="openGmailSettings()">Gmail Settings</button>
     <button class="button" onclick="openTutorial()">Signature Setup Tutorial</button>
-    <button class="button" onclick="toggleElements()">Reply Signature</button>
+   
 </div>
 
 <div class="body">
-    <div class="row" style="display: flex; Flex-Direction: row; text-wrap: nowrap;">
-        <div class="logo" style="float: left; display: inline-block; height: 130px; width: 150px; margin-right: 10px;">
-            <img class="img" src="https://ci3.googleusercontent.com/mail-sig/AIorK4yz8Ke-iHuTO_tKrfrFq6fHxCRYbrzKeA0M91Zh4mlhCzXzFgoW6DYJrMqgE8WI6jhEsmKs8SQ" alt="logo">
-        </div><br>
-        <div class="text" style="float: left; display: inline-block; height: 110px; width: 690px; margin-right: 10px; margin-top: 10px" contenteditable="true">
-            <p style="font-size: 16px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); display: inline; margin-right: 5px" class="name">Name Surname</p>
-            <p style="font-size: 16px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); display: inline; margin-right: 5px" class="sep"> | </p>
-            <p style="font-size: 16px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); display: inline;" class="job">Job Title</p>
-            <br><br>
-            <p style="font-size: 13px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); float: left; margin-right: 5px; clear: left;" class="code">m: +995</p>
-            <p style="font-size: 13px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); float: left; margin-right: 5px;" class="info">XXX XX XX XX</p>
-            <p style="font-size: 13px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); float: left;" class="address"> | t: +995 322 999 900 | Shekvetili Beach, Highway E70 Shekvetili, 3521 Georgia</p>
-        </div>
-    </div>
-    <div class="footer">
-        <img class="img" src="https://ci3.googleusercontent.com/mail-sig/AIorK4x3VlmNhspfB7vOxd8VYNPvr-QJP5pUObB8OkU4b_ZWE87d2xFTEbIZX_NheK2MHYFFElDteXU" alt="footer">
-    </div>
-    <div class="baner" style="margin-bottom: 5px;">
-        <a href="https://www.marriott.com/en-us/hotels/busak-paragraph-resort-and-spa-shekvetili-autograph-collection/overview/" target="_blank">
-            <img class="img" src="https://ci3.googleusercontent.com/mail-sig/AIorK4zHNLCelN7jcbC9tgpLHnG8cU00p9mvDtbmj6h5sUGpgK7xVNaW4YJbDdtXQJyNAgu3v8yPLxYNG-p4" alt="footer">
-        </a>
-    </div>
-    <br><br>
+    <table>
+        <tr>
+            <td style="width: 150px;">
+                <img src="https://ci3.googleusercontent.com/mail-sig/AIorK4yz8Ke-iHuTO_tKrfrFq6fHxCRYbrzKeA0M91Zh4mlhCzXzFgoW6DYJrMqgE8WI6jhEsmKs8SQ" alt="Logo" style="width: 150px; height: auto;">
+            </td>
+            <td class="text" style="float: left; display: inline-block; height: 110px; width: 690px; margin-right: 10px; margin-top: 10px" contenteditable="true">
+                <br>
+                <p style="font-size: 16px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); display: inline; margin-right: 5px" class="name">Name Surname</p>
+                <p style="font-size: 16px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); display: inline; margin-right: 5px" class="sep"> | </p>
+                <p style="font-size: 16px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); display: inline;" class="job">Job Title</p>
+                <br><br>
+                <p style="font-size: 13px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); float: left; margin-right: 5px; clear: left;" class="code">m: +995</p>
+                <p style="font-size: 13px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); float: left; margin-right: 5px;" class="info">XXX XX XX XX</p>
+                <p style="font-size: 13px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); float: left;" class="address"> | t: +995 322 999 900 | Shekvetili Beach, Highway E70 Shekvetili, 3521 Georgia</p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                <img src="https://ci3.googleusercontent.com/mail-sig/AIorK4x3VlmNhspfB7vOxd8VYNPvr-QJP5pUObB8OkU4b_ZWE87d2xFTEbIZX_NheK2MHYFFElDteXU" alt="Footer" style="width: 100%; height: auto;">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                <a href="https://www.marriott.com/en-us/hotels/busak-paragraph-resort-and-spa-shekvetili-autograph-collection/overview/" target="_blank">
+                    <img src="https://ci3.googleusercontent.com/mail-sig/AIorK4zHNLCelN7jcbC9tgpLHnG8cU00p9mvDtbmj6h5sUGpgK7xVNaW4YJbDdtXQJyNAgu3v8yPLxYNG-p4" alt="Banner" style="width: 100%; height: auto;">
+                </a>
+            </td>
+        </tr>
+    </table>
 </div>
 
 <script>
@@ -213,8 +221,8 @@
     }
 
     function copyContent() {
-        var bodyContent = document.querySelector('.body');
-        var range = document.createRange();
+        const bodyContent = document.querySelector('.body');
+        const range = document.createRange();
         range.selectNode(bodyContent);
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
