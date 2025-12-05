@@ -1,825 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bodbe Training Portal</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-  
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <link rel="icon" href="./logo.png">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-          },
-        },
-      },
-    }
-  </script>
-  <style>
-    body { margin: 0; font-family: 'Inter', system-ui, sans-serif; }
-    .line-clamp-1 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; }
-    .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
-    .loader { border: 2px solid rgba(255,255,255,0.1); border-top-color: #3b82f6; border-radius: 50%; width: 32px; height: 32px; animation: spin 0.8s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    .fade-in { animation: fadeIn 0.3s ease-out; }
-    .card-hover { transition: all 0.2s ease; }
-    .card-hover:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+    <meta name="generator" content="Guga Gordeladze">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://i.postimg.cc/d02Pj64w/favicon-16x16.png">
+    <title>Paragraph Signature</title>
+    <style>
+        body {
+            margin: 0;
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .body {
+            height: 500px;
+            width: 900px;
+            margin: 0 auto; /* Center the div horizontally */
+        }
+
+        .header {
+            height: 28px;
+            width: 810px;
+            align-items: center;
+            text-align: center;
+            margin-top: 15px;
+            background-color: rgb(0, 85, 135);
+            border-radius: 5px 5px 5px 5px;
+        }
+
+        #nameInput {
+            width: 160px;
+            height: 20px;
+            border: 2px solid;
+            border-color: rgb(0, 85, 135);
+            text-align: center;
+            color: rgb(0, 85, 135);
+            border-radius: 5px 5px 5px 5px;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        #jobInput {
+            width: 160px;
+            height: 20px;
+            border: 2px solid;
+            border-color: rgb(0, 85, 135);
+            text-align: center;
+            color: rgb(0, 85, 135);
+            border-radius: 5px 5px 5px 5px;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        #infoInput {
+            width: 160px;
+            height: 20px;
+            border: 2px solid;
+            border-color: rgb(0, 85, 135);
+            text-align: center;
+            color: rgb(0, 85, 135);
+            border-radius: 5px 5px 5px 5px;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        .button {
+            padding: 6px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            background-color: rgb(0, 85, 135);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .header input {
+            margin-right: 10px;
+        }
+
+        .logo {
+            height: 130px;
+            width: 150px;
+            background-color: #fff; /* Set background color */
+            margin-right: 10px;
+        }
+
+        .text {
+            height: 110px;
+            width: 690px;
+            background-color: #fff; /* Set background color */
+            margin-right: 10px;
+            overflow: hidden; /* Clear floats without using clear: both; */
+        }
+
+        .footer {
+            clear: both;
+            height: 70px;
+            width: 850px;
+            background-color: #fff; /* Set background color */
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .baner {
+            clear: both;
+            height: 120px;
+            width: 850px;
+            background-color: #fff; /* Set background color */
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .alert {
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #45a050;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            display: block;
+            transition: display 0.3s;
+        }
+
+        .header1 {
+            text-align: center;
+            padding-bottom: 5%;
+        }
+
+        .but {
+            display: inline-block;
+            margin: 5px; /* Adjust the margin as needed */
+            padding: 6px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            background-color: #C70039;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
-  <div id="root"></div>
-  
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCLvE-B5tYxzH95-rjwiTgGNyR4UO1s9tc",
-      authDomain: "bodbe-tutorial-site.firebaseapp.com",
-      projectId: "bodbe-tutorial-site",
-      storageBucket: "bodbe-tutorial-site.firebasestorage.app",
-      messagingSenderId: "611277273228",
-      appId: "1:611277273228:web:26b018bb5cd48d9da2e3a9"
-    };
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-    const auth = firebase.auth();
-    const googleProvider = new firebase.auth.GoogleAuthProvider();
-  </script>
+<div class="header">
+    <button class="button" onclick="refreshPage()">Refresh</button>
+    <input type="text" id="nameInput" placeholder="Name and Surname">
+    <input type="text" id="jobInput" placeholder="Job Title">
+    <input type="text" id="infoInput" placeholder="Mobile XXX XX XX XX">
+</div>
 
-  <script type="text/babel">
-    const { useState, useEffect, useRef } = React;
+<div class="header1">
+    <button class="button" onclick="generateContent()">Generate</button>
+    <button class="button" onclick="copyContent()">Copy Signature</button>
+    <button class="button" onclick="openGmailSettings()">Gmail Settings</button>
+    <button class="button" onclick="openTutorial()">Signature Setup Video</button>
+    <button class="button" onclick="toggleElements()">Reply Signature</button>
+</div>
 
-    const DEPARTMENT_PASSWORDS = {
-      admin: 'admin2024',
-      fo: 'frontoffice2024',
-      fb: 'foodbev2024',
-      hk: 'housekeeping2024',
-      spa: 'spawellness2024',
-    };
-
-    const departments = [
-      { id: 'fo', name: 'Front Office', icon: '🏨', color: 'from-blue-500 to-blue-600', lightBg: 'bg-blue-500/10', border: 'border-blue-500/20', text: 'text-blue-400' },
-      { id: 'fb', name: 'Food & Beverage', icon: '🍽️', color: 'from-orange-500 to-orange-600', lightBg: 'bg-orange-500/10', border: 'border-orange-500/20', text: 'text-orange-400' },
-      { id: 'hk', name: 'Housekeeping', icon: '🛏️', color: 'from-emerald-500 to-emerald-600', lightBg: 'bg-emerald-500/10', border: 'border-emerald-500/20', text: 'text-emerald-400' },
-      { id: 'spa', name: 'SPA & Wellness', icon: '💆', color: 'from-violet-500 to-violet-600', lightBg: 'bg-violet-500/10', border: 'border-violet-500/20', text: 'text-violet-400' },
-    ];
-
-    const getEmbedUrl = (url) => {
-      if (!url) return '';
-      let match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-      if (match) return `https://www.youtube.com/embed/${match[1]}?rel=0&modestbranding=1&enablejsapi=1`;
-      match = url.match(/(?:vimeo\.com\/)(\d+)/);
-      if (match) return `https://player.vimeo.com/video/${match[1]}`;
-      if (url.includes('embed') || url.includes('player')) return url;
-      return url;
-    };
-
-    const formatDuration = (seconds) => {
-      if (!seconds || seconds < 1) return '< 1s';
-      if (seconds < 60) return `${Math.round(seconds)}s`;
-      const mins = Math.floor(seconds / 60);
-      const secs = Math.round(seconds % 60);
-      if (mins < 60) return `${mins}m ${secs}s`;
-      const hours = Math.floor(mins / 60);
-      return `${hours}h ${mins % 60}m`;
-    };
-
-    const formatDate = (timestamp) => {
-      if (!timestamp) return '';
-      const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
-      return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-    };
-
-    function App() {
-      const [currentPage, setCurrentPage] = useState('home');
-      const [videos, setVideos] = useState([]);
-      const [watchLogs, setWatchLogs] = useState([]);
-      const [loading, setLoading] = useState(true);
-      const [saving, setSaving] = useState(false);
-      const [adminRole, setAdminRole] = useState(null);
-      const [showLogin, setShowLogin] = useState(false);
-      const [loginType, setLoginType] = useState('admin');
-      const [password, setPassword] = useState('');
-      const [loginError, setLoginError] = useState('');
-      const [selectedDepartment, setSelectedDepartment] = useState(null);
-      const [showAddForm, setShowAddForm] = useState(false);
-      const [editingVideo, setEditingVideo] = useState(null);
-      const [formData, setFormData] = useState({ title: '', description: '', videoUrl: '', department: 'fo' });
-      const [activeVideo, setActiveVideo] = useState(null);
-      const [error, setError] = useState(null);
-      const [selectedLogDepartment, setSelectedLogDepartment] = useState(null);
-      const [user, setUser] = useState(null);
-      const [authLoading, setAuthLoading] = useState(true);
-      const [userFilter, setUserFilter] = useState('');
-      const watchStartTime = useRef(null);
-      const currentWatchLogId = useRef(null);
-
-      useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((user) => { setUser(user); setAuthLoading(false); });
-        return () => unsubscribe();
-      }, []);
-
-      useEffect(() => {
-        const unsubscribe = db.collection('videos').orderBy('createdAt', 'desc').onSnapshot(
-          (snapshot) => { setVideos(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))); setLoading(false); },
-          (err) => { console.error("Error:", err); setError("Failed to load. Please refresh."); setLoading(false); }
-        );
-        return () => unsubscribe();
-      }, []);
-
-      useEffect(() => {
-        if (!adminRole) return;
-        const unsubscribe = db.collection('watchLogs').orderBy('startTime', 'desc').limit(500).onSnapshot(
-          (snapshot) => setWatchLogs(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))),
-          (err) => console.error("Error:", err)
-        );
-        return () => unsubscribe();
-      }, [adminRole]);
-
-      useEffect(() => {
-        if (adminRole && adminRole !== 'admin') {
-          setSelectedLogDepartment(adminRole);
-        }
-      }, [adminRole]);
-
-      const signInWithGoogle = async () => {
-        try { await auth.signInWithPopup(googleProvider); }
-        catch (error) { console.error("Error:", error); alert("Failed to sign in."); }
-      };
-
-      const signOut = async () => {
-        try { await auth.signOut(); } catch (error) { console.error("Error:", error); }
-      };
-
-      const startWatching = async (video) => {
-        setActiveVideo(video);
-        watchStartTime.current = Date.now();
-        if (user) {
-          try {
-            const docRef = await db.collection('watchLogs').add({
-              odal: user.uid, userEmail: user.email, userName: user.displayName || user.email,
-              userPhoto: user.photoURL, videoId: video.id, videoTitle: video.title,
-              department: video.department, startTime: firebase.firestore.FieldValue.serverTimestamp(),
-              duration: 0, completed: false
-            });
-            currentWatchLogId.current = docRef.id;
-          } catch (error) { console.error("Error:", error); }
-        }
-      };
-
-      const stopWatching = async () => {
-        if (watchStartTime.current && currentWatchLogId.current) {
-          const duration = (Date.now() - watchStartTime.current) / 1000;
-          try {
-            await db.collection('watchLogs').doc(currentWatchLogId.current).update({
-              duration, endTime: firebase.firestore.FieldValue.serverTimestamp(), completed: duration > 30
-            });
-          } catch (error) { console.error("Error:", error); }
-        }
-        watchStartTime.current = null;
-        currentWatchLogId.current = null;
-        setActiveVideo(null);
-      };
-
-      const handleLogin = (e) => {
-        e.preventDefault();
-        if (password === DEPARTMENT_PASSWORDS[loginType]) {
-          setAdminRole(loginType);
-          setShowLogin(false);
-          setPassword('');
-          setLoginError('');
-          if (loginType !== 'admin') {
-            setSelectedLogDepartment(loginType);
-            setSelectedDepartment(loginType);
-          }
-        } else {
-          setLoginError('Incorrect password');
-        }
-      };
-
-      const handleLogout = () => {
-        setAdminRole(null);
-        setSelectedDepartment(null);
-        setCurrentPage('home');
-        setSelectedLogDepartment(null);
-        setUserFilter('');
-      };
-
-      const canEditVideo = (video) => {
-        if (adminRole === 'admin') return true;
-        if (adminRole && video.department === adminRole) return true;
-        return false;
-      };
-
-      const getAddableDepartments = () => {
-        if (adminRole === 'admin') return departments;
-        if (adminRole) return departments.filter(d => d.id === adminRole);
-        return [];
-      };
-
-      const handleAddVideo = async (e) => {
-        e.preventDefault();
-        setSaving(true);
-        try {
-          await db.collection('videos').add({
-            ...formData,
-            videoUrl: getEmbedUrl(formData.videoUrl),
-            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-            addedBy: adminRole
-          });
-          setFormData({ title: '', description: '', videoUrl: '', department: adminRole === 'admin' ? 'fo' : adminRole });
-          setShowAddForm(false);
-        } catch (err) { console.error("Error:", err); alert("Failed to add video."); }
-        setSaving(false);
-      };
-
-      const handleEditVideo = async (e) => {
-        e.preventDefault();
-        setSaving(true);
-        try {
-          await db.collection('videos').doc(editingVideo.id).update({
-            title: formData.title, description: formData.description,
-            videoUrl: getEmbedUrl(formData.videoUrl), department: formData.department,
-          });
-          setEditingVideo(null);
-          setFormData({ title: '', description: '', videoUrl: '', department: 'fo' });
-        } catch (err) { console.error("Error:", err); alert("Failed to update video."); }
-        setSaving(false);
-      };
-
-      const handleDeleteVideo = async (id) => {
-        if (confirm('Delete this video?')) {
-          try { await db.collection('videos').doc(id).delete(); }
-          catch (err) { console.error("Error:", err); alert("Failed to delete."); }
-        }
-      };
-
-      const startEdit = (video) => {
-        setEditingVideo(video);
-        setFormData({ title: video.title, description: video.description, videoUrl: video.videoUrl, department: video.department });
-      };
-
-      const openAddForm = () => {
-        const dept = adminRole === 'admin' ? (selectedLogDepartment || selectedDepartment || 'fo') : adminRole;
-        setFormData({ title: '', description: '', videoUrl: '', department: dept });
-        setShowAddForm(true);
-        setEditingVideo(null);
-      };
-
-      const getVisibleVideos = () => {
-        if (adminRole && adminRole !== 'admin') {
-          return videos.filter(v => v.department === adminRole);
-        }
-        return videos;
-      };
-
-      const visibleVideos = getVisibleVideos();
-      const filteredVideos = selectedDepartment ? visibleVideos.filter((v) => v.department === selectedDepartment) : visibleVideos;
-      const getDepartmentInfo = (id) => departments.find((d) => d.id === id);
-      const getLogsForDepartment = (deptId) => watchLogs.filter(log => log.department === deptId);
-
-      const getDepartmentStats = (deptId) => {
-        const deptLogs = getLogsForDepartment(deptId);
-        return {
-          uniqueUsers: [...new Set(deptLogs.map(log => log.userEmail))].length,
-          totalWatchTime: deptLogs.reduce((sum, log) => sum + (log.duration || 0), 0),
-          completedViews: deptLogs.filter(log => log.completed).length,
-          totalViews: deptLogs.length,
-          totalVideos: videos.filter(v => v.department === deptId).length
-        };
-      };
-
-      const getUserSummary = (deptId) => {
-        const deptLogs = getLogsForDepartment(deptId);
-        const deptVideos = videos.filter(v => v.department === deptId);
-        const userMap = {};
-        deptLogs.forEach(log => {
-          if (!userMap[log.userEmail]) {
-            userMap[log.userEmail] = { email: log.userEmail, name: log.userName, photo: log.userPhoto, videosWatched: new Set(), totalTime: 0, completedVideos: new Set(), lastWatch: null };
-          }
-          userMap[log.userEmail].videosWatched.add(log.videoId);
-          userMap[log.userEmail].totalTime += log.duration || 0;
-          if (log.completed) userMap[log.userEmail].completedVideos.add(log.videoId);
-          if (!userMap[log.userEmail].lastWatch || (log.startTime?.toDate() > userMap[log.userEmail].lastWatch)) userMap[log.userEmail].lastWatch = log.startTime?.toDate();
-        });
-        return Object.values(userMap).map(u => ({
-          ...u, videosWatched: u.videosWatched.size, completedVideos: u.completedVideos.size, totalVideos: deptVideos.length,
-          progress: deptVideos.length > 0 ? Math.round((u.completedVideos.size / deptVideos.length) * 100) : 0
-        })).sort((a, b) => b.progress - a.progress);
-      };
-
-      const getUniqueUsers = (deptId) => {
-        const deptLogs = getLogsForDepartment(deptId);
-        const users = {};
-        deptLogs.forEach(log => {
-          if (!users[log.userEmail]) {
-            users[log.userEmail] = { email: log.userEmail, name: log.userName };
-          }
-        });
-        return Object.values(users).sort((a, b) => a.name.localeCompare(b.name));
-      };
-
-      if (loading || authLoading) {
-        return (
-          <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-            <div className="text-center"><div className="loader mx-auto mb-3"></div><p className="text-slate-500 text-sm">Loading...</p></div>
-          </div>
-        );
-      }
-
-      if (error) {
-        return (
-          <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
-            <div className="text-center p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-sm">
-              <p className="text-red-400 mb-4">{error}</p>
-              <button onClick={() => window.location.reload()} className="px-4 py-2 bg-slate-800 text-white rounded-lg hover:bg-slate-700 text-sm">Refresh</button>
-            </div>
-          </div>
-        );
-      }
-
-      // LOGS PAGE
-      if (currentPage === 'logs' && adminRole) {
-        const accessibleDepartments = adminRole === 'admin' ? departments : departments.filter(d => d.id === adminRole);
-        const currentDept = adminRole === 'admin' ? (selectedLogDepartment || accessibleDepartments[0]?.id) : adminRole;
-        const currentDeptInfo = getDepartmentInfo(currentDept);
-        const stats = getDepartmentStats(currentDept);
-        const userSummary = getUserSummary(currentDept);
-        const uniqueUsers = getUniqueUsers(currentDept);
-        const deptLogs = getLogsForDepartment(currentDept);
-        const deptVideos = videos.filter(v => v.department === currentDept);
-
-        const filteredLogs = userFilter 
-          ? deptLogs.filter(log => log.userEmail === userFilter)
-          : deptLogs;
-
-        const filteredUserSummary = userFilter
-          ? userSummary.filter(u => u.email === userFilter)
-          : userSummary;
-
-        return (
-          <div className="min-h-screen bg-slate-950">
-            <header className="bg-slate-900/80 backdrop-blur-xl border-b border-slate-800/50 sticky top-0 z-40">
-              <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <button onClick={() => setCurrentPage('home')} className="p-2 rounded-lg hover:bg-slate-800 transition-colors">
-                    <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
-                  </button>
-                  <div className="h-8"><img src="./logo.png" alt="Bodbe" className="h-full w-auto" /></div>
-                  <div className="hidden sm:block h-6 w-px bg-slate-800"></div>
-                  <span className="hidden sm:block text-slate-400 text-sm">Analytics</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${adminRole === 'admin' ? 'bg-amber-500/10 text-amber-400' : `${currentDeptInfo?.lightBg} ${currentDeptInfo?.text}`}`}>
-                    {adminRole === 'admin' ? '👑 Admin' : `${currentDeptInfo?.icon} ${currentDeptInfo?.name}`}
-                  </span>
-                  <button onClick={handleLogout} className="text-slate-500 hover:text-white text-sm">Sign out</button>
-                </div>
-              </div>
-            </header>
-
-            <main className="max-w-6xl mx-auto px-4 py-8">
-              {adminRole === 'admin' && (
-                <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
-                  {departments.map(dept => (
-                    <button key={dept.id} onClick={() => { setSelectedLogDepartment(dept.id); setUserFilter(''); }}
-                      className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all whitespace-nowrap flex items-center gap-2 ${currentDept === dept.id ? `bg-gradient-to-r ${dept.color} text-white shadow-lg` : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'}`}>
-                      <span className="text-lg">{dept.icon}</span>{dept.name}
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {adminRole !== 'admin' && (
-                <div className={`p-5 rounded-2xl bg-gradient-to-r ${currentDeptInfo?.color} mb-8`}>
-                  <div className="flex items-center gap-3">
-                    <span className="text-3xl">{currentDeptInfo?.icon}</span>
-                    <div>
-                      <h2 className="text-xl font-bold text-white">{currentDeptInfo?.name}</h2>
-                      <p className="text-white/70 text-sm">Department Analytics</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-8">
-                {[
-                  { label: 'Videos', value: stats.totalVideos, color: 'text-white' },
-                  { label: 'Viewers', value: stats.uniqueUsers, color: 'text-blue-400' },
-                  { label: 'Views', value: stats.totalViews, color: 'text-emerald-400' },
-                  { label: 'Completed', value: stats.completedViews, color: 'text-amber-400' },
-                  { label: 'Watch Time', value: formatDuration(stats.totalWatchTime), color: 'text-violet-400' },
-                ].map((stat, i) => (
-                  <div key={i} className="bg-slate-900/50 rounded-2xl p-4 border border-slate-800/50">
-                    <p className={`text-2xl font-semibold ${stat.color}`}>{stat.value}</p>
-                    <p className="text-slate-500 text-xs mt-1">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mb-6 flex flex-wrap items-center gap-3">
-                <label className="text-slate-400 text-sm">Filter by employee:</label>
-                <select 
-                  value={userFilter} 
-                  onChange={(e) => setUserFilter(e.target.value)}
-                  className="px-4 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-slate-600 min-w-[200px]"
-                >
-                  <option value="">All Employees</option>
-                  {uniqueUsers.map(u => (
-                    <option key={u.email} value={u.email}>{u.name}</option>
-                  ))}
-                </select>
-                {userFilter && (
-                  <button onClick={() => setUserFilter('')} className="text-slate-500 hover:text-white text-sm flex items-center gap-1">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-                    Clear
-                  </button>
-                )}
-              </div>
-
-              <div className="grid lg:grid-cols-2 gap-6 mb-8">
-                <div className="bg-slate-900/50 rounded-2xl border border-slate-800/50 overflow-hidden">
-                  <div className="px-5 py-4 border-b border-slate-800/50">
-                    <h3 className="text-white font-medium">Employee Progress {userFilter && `(${filteredUserSummary.length})`}</h3>
-                  </div>
-                  <div className="p-4 max-h-[360px] overflow-auto">
-                    {filteredUserSummary.length === 0 ? (
-                      <p className="text-slate-500 text-sm text-center py-8">No activity yet</p>
-                    ) : (
-                      <div className="space-y-3">
-                        {filteredUserSummary.map((u) => (
-                          <div key={u.email} className="bg-slate-800/50 rounded-xl p-4">
-                            <div className="flex items-center gap-3 mb-3">
-                              {u.photo ? <img src={u.photo} alt="" className="w-9 h-9 rounded-full" /> : <div className="w-9 h-9 rounded-full bg-slate-700 flex items-center justify-center text-white text-sm">{u.name?.charAt(0)}</div>}
-                              <div className="flex-1 min-w-0">
-                                <p className="text-white text-sm font-medium truncate">{u.name}</p>
-                                <p className="text-slate-500 text-xs truncate">{u.email}</p>
-                              </div>
-                              <span className={`text-lg font-semibold ${u.progress === 100 ? 'text-emerald-400' : u.progress >= 50 ? 'text-amber-400' : 'text-slate-500'}`}>{u.progress}%</span>
-                            </div>
-                            <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden">
-                              <div className={`h-full rounded-full transition-all ${u.progress === 100 ? 'bg-emerald-500' : u.progress >= 50 ? 'bg-amber-500' : 'bg-slate-600'}`} style={{ width: `${u.progress}%` }} />
-                            </div>
-                            <div className="flex justify-between mt-2 text-xs text-slate-500">
-                              <span>{u.completedVideos}/{u.totalVideos} videos</span>
-                              <span>{formatDuration(u.totalTime)}</span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="bg-slate-900/50 rounded-2xl border border-slate-800/50 overflow-hidden">
-                  <div className="px-5 py-4 border-b border-slate-800/50 flex justify-between items-center">
-                    <h3 className="text-white font-medium">Videos ({deptVideos.length})</h3>
-                    <button 
-                      onClick={openAddForm} 
-                      className={`px-3 py-1.5 rounded-lg text-xs font-medium bg-gradient-to-r ${currentDeptInfo?.color} text-white hover:opacity-90 transition-opacity`}
-                    >
-                      + Add Video
-                    </button>
-                  </div>
-                  <div className="p-4 max-h-[360px] overflow-auto">
-                    {deptVideos.length === 0 ? (
-                      <p className="text-slate-500 text-sm text-center py-8">No videos yet</p>
-                    ) : (
-                      <div className="space-y-2">
-                        {deptVideos.map(video => {
-                          const videoLogs = deptLogs.filter(l => l.videoId === video.id);
-                          const uniqueViewers = [...new Set(videoLogs.map(l => l.userEmail))].length;
-                          return (
-                            <div key={video.id} className="flex items-center justify-between p-3 rounded-xl bg-slate-800/50 hover:bg-slate-800 transition-colors">
-                              <div className="min-w-0 flex-1">
-                                <p className="text-white text-sm font-medium truncate">{video.title}</p>
-                                <p className="text-slate-500 text-xs">{uniqueViewers} viewers</p>
-                              </div>
-                              {canEditVideo(video) && (
-                                <div className="flex gap-1 ml-2">
-                                  <button onClick={() => startEdit(video)} className="p-1.5 text-slate-500 hover:text-white rounded-lg hover:bg-slate-700"><svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg></button>
-                                  <button onClick={() => handleDeleteVideo(video.id)} className="p-1.5 text-slate-500 hover:text-red-400 rounded-lg hover:bg-slate-700"><svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></button>
-                                </div>
-                              )}
-                            </div>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-slate-900/50 rounded-2xl border border-slate-800/50 overflow-hidden">
-                <div className="px-5 py-4 border-b border-slate-800/50 flex justify-between items-center">
-                  <h3 className="text-white font-medium">Recent Activity</h3>
-                  <span className="text-slate-500 text-xs">{filteredLogs.length} records</span>
-                </div>
-                <div className="overflow-x-auto">
-                  {filteredLogs.length === 0 ? (
-                    <p className="text-slate-500 text-sm text-center py-8">No activity yet</p>
-                  ) : (
-                    <table className="w-full text-sm">
-                      <thead><tr className="text-left text-slate-500 text-xs uppercase tracking-wider"><th className="px-5 py-3">Employee</th><th className="px-5 py-3">Video</th><th className="px-5 py-3">Duration</th><th className="px-5 py-3">Status</th><th className="px-5 py-3">Date</th></tr></thead>
-                      <tbody className="divide-y divide-slate-800/50">
-                        {filteredLogs.slice(0, 50).map((log) => (
-                          <tr key={log.id} className="hover:bg-slate-800/30">
-                            <td className="px-5 py-3"><div className="flex items-center gap-2">{log.userPhoto && <img src={log.userPhoto} className="w-6 h-6 rounded-full" />}<span className="text-white">{log.userName}</span></div></td>
-                            <td className="px-5 py-3 text-slate-300 max-w-[200px] truncate">{log.videoTitle}</td>
-                            <td className="px-5 py-3 text-slate-400">{formatDuration(log.duration)}</td>
-                            <td className="px-5 py-3">{log.completed ? <span className="text-emerald-400 text-xs">✓ Done</span> : <span className="text-slate-500 text-xs">Partial</span>}</td>
-                            <td className="px-5 py-3 text-slate-500 text-xs">{formatDate(log.startTime)}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  )}
-                </div>
-              </div>
-            </main>
-          </div>
-        );
-      }
-
-      // HOME PAGE
-      const visibleDepartments = adminRole && adminRole !== 'admin' 
-        ? departments.filter(d => d.id === adminRole)
-        : departments;
-
-      return (
-        <div className="min-h-screen bg-slate-950">
-          <header className="bg-slate-900/80 backdrop-blur-xl border-b border-slate-800/50 sticky top-0 z-40">
-            <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="h-9"><img src="./logo.png" alt="Bodbe Hotel" className="h-full w-auto" /></div>
-                <div className="hidden sm:block h-6 w-px bg-slate-800"></div>
-                <span className="hidden sm:block text-white font-medium">Training Portal</span>
-              </div>
-              <div className="flex items-center gap-3">
-                {user ? (
-                  <div className="flex items-center gap-3">
-                    <img src={user.photoURL} alt="" className="w-8 h-8 rounded-full ring-2 ring-slate-800" />
-                    <span className="hidden sm:block text-slate-300 text-sm">{user.displayName?.split(' ')[0]}</span>
-                    <button onClick={signOut} className="text-slate-500 hover:text-white text-sm">Sign out</button>
-                  </div>
-                ) : (
-                  <button onClick={signInWithGoogle} className="px-4 py-2 bg-white text-slate-900 rounded-lg text-sm font-medium hover:bg-slate-100 transition-colors flex items-center gap-2">
-                    <svg className="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-                    Sign in
-                  </button>
-                )}
-                {adminRole ? (
-                  <div className="flex items-center gap-2">
-                    <button onClick={() => setCurrentPage('logs')} className="px-3 py-2 bg-slate-800 text-white rounded-lg text-sm hover:bg-slate-700 flex items-center gap-2">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-                      Analytics
-                    </button>
-                    <button onClick={handleLogout} className="text-slate-500 hover:text-white text-sm">Exit</button>
-                  </div>
-                ) : (
-                  <button onClick={() => setShowLogin(true)} className="px-3 py-2 bg-slate-800 text-slate-300 rounded-lg text-sm hover:bg-slate-700">Manager</button>
-                )}
-              </div>
-            </div>
-          </header>
-
-          <main className="max-w-6xl mx-auto px-4 py-8">
-            {!user && !adminRole && (
-              <div className="mb-8 p-6 rounded-2xl bg-gradient-to-r from-blue-500/10 to-violet-500/10 border border-slate-800">
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                  <div>
-                    <h2 className="text-white font-semibold text-lg mb-1">Welcome to Training Portal</h2>
-                    <p className="text-slate-400 text-sm">Sign in with Google to track your learning progress</p>
-                  </div>
-                  <button onClick={signInWithGoogle} className="px-5 py-2.5 bg-white text-slate-900 rounded-xl text-sm font-medium hover:bg-slate-100 transition-colors flex items-center gap-2 shrink-0">
-                    <svg className="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-                    Sign in with Google
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {adminRole && (
-              <div className={`mb-8 p-5 rounded-2xl border ${adminRole === 'admin' ? 'bg-amber-500/5 border-amber-500/20' : `${getDepartmentInfo(adminRole)?.lightBg} ${getDepartmentInfo(adminRole)?.border}`}`}>
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">{adminRole === 'admin' ? '👑' : getDepartmentInfo(adminRole)?.icon}</span>
-                    <div>
-                      <p className="text-white font-medium">{adminRole === 'admin' ? 'Super Admin' : `${getDepartmentInfo(adminRole)?.name} Manager`}</p>
-                      <p className="text-slate-500 text-sm">
-                        {adminRole === 'admin' ? 'You can manage all departments' : `Managing ${getDepartmentInfo(adminRole)?.name} videos`}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <button onClick={() => setCurrentPage('logs')} className="px-4 py-2 bg-slate-800 text-white rounded-xl text-sm hover:bg-slate-700 flex items-center gap-2">📊 Analytics</button>
-                    <button onClick={openAddForm} className={`px-4 py-2 rounded-xl text-sm text-white bg-gradient-to-r ${adminRole === 'admin' ? 'from-amber-500 to-orange-500' : getDepartmentInfo(adminRole)?.color}`}>+ Add Video</button>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <div className="mb-8">
-              <h2 className="text-slate-400 text-sm font-medium uppercase tracking-wider mb-4">
-                {adminRole && adminRole !== 'admin' ? 'Your Department' : 'Departments'}
-              </h2>
-              <div className={`grid gap-3 ${visibleDepartments.length === 1 ? 'grid-cols-1 max-w-xs' : 'grid-cols-2 sm:grid-cols-4'}`}>
-                {visibleDepartments.map((dept) => (
-                  <button 
-                    key={dept.id} 
-                    onClick={() => adminRole === 'admin' || !adminRole ? setSelectedDepartment(selectedDepartment === dept.id ? null : dept.id) : null}
-                    className={`p-5 rounded-2xl transition-all ${adminRole && adminRole !== 'admin' ? 'cursor-default' : 'card-hover'} ${selectedDepartment === dept.id || (adminRole && adminRole !== 'admin') ? `bg-gradient-to-br ${dept.color} shadow-xl` : 'bg-slate-900 border border-slate-800 hover:border-slate-700'}`}
-                  >
-                    <div className="text-3xl mb-3">{dept.icon}</div>
-                    <div className="text-white font-medium text-sm">{dept.name}</div>
-                    <div className="text-slate-400 text-xs mt-1">{videos.filter((v) => v.department === dept.id).length} videos</div>
-                  </button>
-                ))}
-              </div>
-              {selectedDepartment && adminRole === 'admin' && (
-                <button onClick={() => setSelectedDepartment(null)} className="mt-4 text-sm text-slate-500 hover:text-white flex items-center gap-1">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-                  Show all departments
-                </button>
-              )}
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-slate-400 text-sm font-medium uppercase tracking-wider">
-                  {adminRole && adminRole !== 'admin' 
-                    ? `${getDepartmentInfo(adminRole)?.icon} ${getDepartmentInfo(adminRole)?.name} Videos`
-                    : selectedDepartment 
-                      ? `${getDepartmentInfo(selectedDepartment)?.icon} ${getDepartmentInfo(selectedDepartment)?.name}` 
-                      : 'All Videos'
-                  }
-                </h2>
-                <span className="text-slate-600 text-sm">{filteredVideos.length} videos</span>
-              </div>
-              
-              {filteredVideos.length === 0 ? (
-                <div className="text-center py-16 bg-slate-900/50 rounded-2xl border border-slate-800">
-                  <div className="text-4xl mb-3">📹</div>
-                  <p className="text-slate-500">No videos available</p>
-                  {adminRole && (
-                    <button onClick={openAddForm} className="mt-4 px-4 py-2 bg-slate-800 text-white rounded-lg text-sm hover:bg-slate-700">
-                      + Add your first video
-                    </button>
-                  )}
-                </div>
-              ) : (
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {filteredVideos.map((video) => {
-                    const dept = getDepartmentInfo(video.department);
-                    return (
-                      <div key={video.id} className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 card-hover group">
-                        <div className="aspect-video relative cursor-pointer" onClick={() => startWatching(video)}>
-                          <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center">
-                            <div className="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 group-hover:scale-110 transition-all">
-                              <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-                            </div>
-                          </div>
-                          <div className={`absolute top-3 left-3 px-2.5 py-1 rounded-lg text-xs font-medium ${dept?.lightBg} ${dept?.text} border ${dept?.border}`}>
-                            {dept?.icon} {dept?.name}
-                          </div>
-                        </div>
-                        <div className="p-4">
-                          <h3 className="text-white font-medium text-sm mb-1 line-clamp-1">{video.title}</h3>
-                          <p className="text-slate-500 text-xs line-clamp-2 mb-3 h-8">{video.description || 'No description'}</p>
-                          <div className="flex items-center justify-between">
-                            <button onClick={() => startWatching(video)} className={`text-xs font-medium ${dept?.text} hover:underline flex items-center gap-1`}>
-                              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-                              Watch
-                            </button>
-                            {canEditVideo(video) && (
-                              <div className="flex gap-1">
-                                <button onClick={() => startEdit(video)} className="p-1.5 text-slate-600 hover:text-white rounded hover:bg-slate-800"><svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg></button>
-                                <button onClick={() => handleDeleteVideo(video.id)} className="p-1.5 text-slate-600 hover:text-red-400 rounded hover:bg-slate-800"><svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></button>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          </main>
-
-          {showLogin && (
-            <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 fade-in">
-              <div className="bg-slate-900 rounded-2xl p-6 w-full max-w-md border border-slate-800">
-                <div className="text-center mb-6">
-                  <div className="h-10 flex justify-center mb-4"><img src="./logo.png" alt="" className="h-full" /></div>
-                  <h3 className="text-white font-semibold text-lg">Manager Login</h3>
-                </div>
-                <form onSubmit={handleLogin} className="space-y-4">
-                  <div>
-                    <label className="block text-slate-400 text-sm mb-2">Select Role</label>
-                    <div className="grid grid-cols-2 gap-2">
-                      <button type="button" onClick={() => setLoginType('admin')} className={`p-3 rounded-xl text-sm font-medium transition-all ${loginType === 'admin' ? 'bg-amber-500 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'}`}>👑 Super Admin</button>
-                      {departments.map(dept => (
-                        <button key={dept.id} type="button" onClick={() => setLoginType(dept.id)} className={`p-3 rounded-xl text-sm font-medium transition-all ${loginType === dept.id ? `bg-gradient-to-r ${dept.color} text-white` : 'bg-slate-800 text-slate-400 hover:text-white'}`}>{dept.icon} {dept.name}</button>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <input type="password" value={password} onChange={(e) => { setPassword(e.target.value); setLoginError(''); }} placeholder="Password" className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-slate-600" />
-                    {loginError && <p className="text-red-400 text-sm mt-2">{loginError}</p>}
-                  </div>
-                  <div className="flex gap-3 pt-2">
-                    <button type="button" onClick={() => { setShowLogin(false); setPassword(''); setLoginError(''); }} className="flex-1 px-4 py-3 bg-slate-800 text-white rounded-xl hover:bg-slate-700">Cancel</button>
-                    <button type="submit" className="flex-1 px-4 py-3 bg-blue-500 text-white rounded-xl hover:bg-blue-600">Login</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          )}
-
-          {(showAddForm || editingVideo) && (
-            <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 fade-in">
-              <div className="bg-slate-900 rounded-2xl p-6 w-full max-w-lg border border-slate-800">
-                <h3 className="text-white font-semibold text-lg mb-6">{editingVideo ? 'Edit Video' : 'Add New Video'}</h3>
-                <form onSubmit={editingVideo ? handleEditVideo : handleAddVideo} className="space-y-4">
-                  <div>
-                    <label className="block text-slate-400 text-sm mb-2">Department</label>
-                    <select 
-                      value={formData.department} 
-                      onChange={(e) => setFormData({ ...formData, department: e.target.value })} 
-                      className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-slate-600" 
-                      disabled={adminRole !== 'admin'}
-                    >
-                      {getAddableDepartments().map((d) => <option key={d.id} value={d.id}>{d.icon} {d.name}</option>)}
-                    </select>
-                    {adminRole !== 'admin' && <p className="text-slate-500 text-xs mt-1">You can only add videos to your department</p>}
-                  </div>
-                  <div>
-                    <label className="block text-slate-400 text-sm mb-2">Title</label>
-                    <input type="text" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} placeholder="Video title" required className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-slate-600" />
-                  </div>
-                  <div>
-                    <label className="block text-slate-400 text-sm mb-2">Description</label>
-                    <textarea value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} placeholder="Brief description" rows={2} className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-slate-600 resize-none" />
-                  </div>
-                  <div>
-                    <label className="block text-slate-400 text-sm mb-2">Video URL</label>
-                    <input type="url" value={formData.videoUrl} onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })} placeholder="https://youtube.com/watch?v=..." required className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-slate-600" />
-                  </div>
-                  <div className="flex gap-3 pt-2">
-                    <button type="button" onClick={() => { setShowAddForm(false); setEditingVideo(null); }} className="flex-1 px-4 py-3 bg-slate-800 text-white rounded-xl hover:bg-slate-700" disabled={saving}>Cancel</button>
-                    <button type="submit" disabled={saving} className="flex-1 px-4 py-3 bg-blue-500 text-white rounded-xl hover:bg-blue-600 disabled:opacity-50">{saving ? 'Saving...' : (editingVideo ? 'Save' : 'Add Video')}</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          )}
-
-          {activeVideo && (
-            <div className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4 fade-in">
-              <div className="w-full max-w-5xl">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <span className={`inline-block px-2.5 py-1 rounded-lg text-xs font-medium mb-2 ${getDepartmentInfo(activeVideo.department)?.lightBg} ${getDepartmentInfo(activeVideo.department)?.text}`}>{getDepartmentInfo(activeVideo.department)?.icon} {getDepartmentInfo(activeVideo.department)?.name}</span>
-                    <h3 className="text-white font-semibold text-lg">{activeVideo.title}</h3>
-                  </div>
-                  <button onClick={stopWatching} className="p-2 rounded-lg hover:bg-slate-800 transition-colors"><svg className="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg></button>
-                </div>
-                <div className="aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl">
-                  <iframe src={activeVideo.videoUrl} className="w-full h-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
-                </div>
-                {activeVideo.description && <p className="text-slate-400 mt-4 text-sm">{activeVideo.description}</p>}
-                {user && <p className="text-slate-600 text-xs mt-2">Watching as {user.displayName}</p>}
-              </div>
-            </div>
-          )}
-
-          <footer className="border-t border-slate-800/50 mt-16">
-            <div className="max-w-6xl mx-auto px-4 py-6 text-center text-slate-600 text-xs">
-              Bodbe Training Portal • Employee training videos
-            </div>
-          </footer>
+<div class="body">
+    <div class="row" style="display: flex; Flex-Direction: row; text-wrap: nowrap;">
+        <div class="logo" style="float: left; display: inline-block; height: 130px; width: 150px; margin-right: 10px;">
+            <img class="img" src="https://ci3.googleusercontent.com/mail-sig/AIorK4yz8Ke-iHuTO_tKrfrFq6fHxCRYbrzKeA0M91Zh4mlhCzXzFgoW6DYJrMqgE8WI6jhEsmKs8SQ" alt="logo">
+        </div><br>
+         <div class="text" style="float: left; display: inline-block; height: 110px; width: 690px; margin-right: 10px; margin-top: 10px" contenteditable="true">
+            <span style="font-size: 16px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); display: inline; margin-right: 5px" class="name">Name Surname</span>
+            <span style="font-size: 16px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); display: inline; margin-right: 5px" class="sep"> | </span>
+            <span style="font-size: 16px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); display: inline;" class="job">Job Title</span>
+            <br><br>
+            <span style="font-size: 13px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); float: left; margin-right: 5px; clear: left;" class="code">m: +995</span>
+            <span style="font-size: 13px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); float: left; margin-right: 5px;" class="info">XXX XX XX XX</span>
+            <span style="font-size: 13px; font-family: 'Helvetica Neue LT GEO 45 Light', sans-serif; color: rgb(0, 85, 135); float: left;" class="address"> | t: +995 322 999 900 | Shekvetili Beach, Highway E70 Shekvetili, 3521 Georgia</span>
         </div>
-      );
+    </div>
+    <div class="footer">
+        <img class="img" src="https://ci3.googleusercontent.com/mail-sig/AIorK4x3VlmNhspfB7vOxd8VYNPvr-QJP5pUObB8OkU4b_ZWE87d2xFTEbIZX_NheK2MHYFFElDteXU" alt="footer">
+    </div>
+    <div class="baner" style="margin-bottom: 5px;">
+        <a href="https://www.marriott.com/en-us/hotels/busak-paragraph-resort-and-spa-shekvetili-autograph-collection/overview/" target="_blank">
+            <img class="img" src="https://lh3.googleusercontent.com/d/13ehXvpAEG9lXXAbuX08d2s7FAZc_Bzfu" alt="footer">
+        </a>
+    </div>
+    <br><br>
+</div>
+
+<script>
+    function generateContent() {
+        var nameInputValue = document.getElementById('nameInput').value;
+        var infoInputValue = document.getElementById('infoInput').value;
+        var jobInputValue = document.getElementById('jobInput').value;
+
+        var nameElement = document.querySelector('.name');
+        var infoElement = document.querySelector('.info');
+        var jobElement = document.querySelector('.job');
+
+        nameElement.textContent = nameInputValue;
+        infoElement.textContent = infoInputValue;
+        jobElement.textContent = jobInputValue;
     }
 
-    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-  </script>
+    function copyContent() {
+        var bodyContent = document.querySelector('.body');
+        var range = document.createRange();
+        range.selectNode(bodyContent);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+
+        // Create and style the alert element
+        var alertElement = document.createElement('div');
+        alertElement.className = 'alert';
+        alertElement.textContent = 'Signature copied to clipboard!';
+
+        // Append the alert element to the document
+        document.body.appendChild(alertElement);
+
+        // Remove the alert after a certain duration (e.g., 3 seconds)
+        setTimeout(function () {
+            document.body.removeChild(alertElement);
+        }, 3000);
+    }
+
+    function refreshPage() {
+        location.reload();
+    }
+
+    function openTutorial() {
+        window.open('https://drive.google.com/file/d/1TkCYwVQfpU0B_-PvtJeFzECMqtGEhyc8/view?usp=sharing', '_blank');
+    }
+
+    function openGmailSettings() {
+        window.open('https://mail.google.com/mail/u/0/?tab=rm#settings/general', '_blank');
+    }
+
+    function toggleElements() {
+        const elements = document.querySelectorAll('.logo, .footer, .baner');
+        elements.forEach(element => {
+            if (element.style.display === 'none') {
+                element.style.display = '';
+            } else {
+                element.style.display = 'none';
+            }
+        });
+    }
+</script>
+
 </body>
 </html>
